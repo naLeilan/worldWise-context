@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function Map() {
   const navigate = useNavigate();
-  const { mapPosition, setMapPosition } = useState([40, 35]);
+  const [mapPosition, setMapPosition] = useState([51.92, 4.46]);
 
   const [searchParam, setSearchParams] = useSearchParams();
   const lat = searchParam.get("lat");
@@ -15,7 +15,7 @@ function Map() {
     <div className={styles.mapContainer}>
       <MapContainer
         center={mapPosition}
-        zoom={13}
+        zoom={9}
         scrollWheelZoom={true}
         className={styles.map}
       >
