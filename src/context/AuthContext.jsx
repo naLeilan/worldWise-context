@@ -22,17 +22,33 @@ function reducer(state, action) {
   }
 }
 
+const FAKE_USER = {
+  name: "Jack",
+  email: "jack@example.com",
+  password: "qwerty",
+  avatar: "https://i.pravatar.cc/100?u=zz",
+};
+
 function AuthProvider({ children }) {
-  const [{ user, isAuthenticated }, dispach] = useReducer(
+  const [{ user, isAuthenticated }, dispatch] = useReducer(
     reducer,
     initialState
   );
 
-  function login(email, pass) {}
+  function login(email, pass) {
+    if (email === FAKE_USER.email && pass === FAKE_USER.password)
+      dispatch({ type: "login", payload: FAKE_USER });
+  }
 
-  function logout() {}
+  function logout() {
+    dispatch({ type: "logout" });
+  }
 
-  return <AuthContext.Provider>{children} </AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 function useAuth() {
@@ -42,4 +58,4 @@ function useAuth() {
   return context;
 }
 
-export { AuthProvider };
+export { AuthProvider, useAuth };
