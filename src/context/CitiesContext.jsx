@@ -117,31 +117,53 @@ function CitiesProvider({ children }) {
       });
       const data = await res.json();
 
-      dispatch({ type: "city/created", payload: data });
+      dispatch({ type: "city/loaded", payload: data });
     } catch {
       dispatch({
         type: "rejected",
-        payload: "There was an error creating the city...",
+        payload: "There was an error loading the city...",
       });
     }
   }
 
-  async function deleteCity(id) {
-    dispatch({ type: "loading" });
+  // async function createCity(newCity) {
+  //   dispatch({ type: "loading" });
 
-    try {
-      await fetch(`${BASE_URL}/cities/${id}`, {
-        method: "DELETE",
-      });
+  //   try {
+  //     const res = await fetch(`${BASE_URL}/cities`, {
+  //       method: "POST",
+  //       body: JSON.stringify(newCity),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     const data = await res.json();
 
-      dispatch({ type: "city/deleted", payload: id });
-    } catch {
-      dispatch({
-        type: "rejected",
-        payload: "There was an error deleting the city...",
-      });
-    }
-  }
+  //     dispatch({ type: "city/created", payload: data });
+  //   } catch {
+  //     dispatch({
+  //       type: "rejected",
+  //       payload: "There was an error creating the city...",
+  //     });
+  //   }
+  // }
+
+  // async function deleteCity(id) {
+  //   dispatch({ type: "loading" });
+
+  //   try {
+  //     await fetch(`${BASE_URL}/cities/${id}`, {
+  //       method: "DELETE",
+  //     });
+
+  //     dispatch({ type: "city/deleted", payload: id });
+  //   } catch {
+  //     dispatch({
+  //       type: "rejected",
+  //       payload: "There was an error deleting the city...",
+  //     });
+  //   }
+  // }
 
   return (
     <CitiesContext.Provider
@@ -152,7 +174,7 @@ function CitiesProvider({ children }) {
         error,
         getCity,
         createCity,
-        deleteCity,
+        // deleteCity,
       }}
     >
       {children}
